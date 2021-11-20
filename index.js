@@ -40,8 +40,20 @@ app.get('/term/get/:term/', (req, res) => {
 
 app.get('/term/getall/', (req, res) => {
     console.log("term: ", req.params.term);
-    save(req.params.term);
-    res.send("OK");
+    var terms = {};
+    function send() {
+        console.log(terms);
+        res.send(terms);
+    }
+    //db.serialize(() => {
+        db.all("SELECT * FROM terms;", (err, rows) => {
+            for (var i = 0; i < rows.length; i++) {
+                console.log(rows[i].term);
+                terms[rows[i].term] = rows[i].type;
+            }
+            send();
+        })
+    //});
 });
 
 app.get('/', (req, res) => {

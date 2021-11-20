@@ -19,16 +19,33 @@
                     jQuery.get(url, (data, status) => {
                         jQuery('#add-status').text(data);
                     });
+
+                    get_all();
                 }
+
+                function get_all() {
+                    jQuery.get('/term/getall/', (data, status) => {
+                        var div = jQuery('#all-terms');
+                        div.text('');
+                        for (var t in data) {
+                            div.append(t, ' ', data[t], '<br>');
+                        }
+                    });
+                }
+                get_all()
             </script>
-            <input type="checkbox" id="word" value="word" title="">
-            <input type="checkbox" id="person" value="person">
-            <input type="checkbox" id="place" value="place">
+            <input type="checkbox" id="word" value="word"><label for="word">word</label>
+            <input type="checkbox" id="person" value="person"><label for="person">person</label>
+            <input type="checkbox" id="place" value="place"><label for="place">place</label>
             <br>
             <input type="text" id="term">
             <input type="button" onclick="add_term()" value="Add">
             <br>
             <div id="add-status"></div>
+            <br><br>
+            <div id="all-terms">
+
+            </div>
         </div>
     </body>
 </html>
