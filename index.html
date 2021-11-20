@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div>
+            <script>
+                function add_term() {
+                    var term = jQuery("#term").val();
+                    var type = null;
+                    if (jQuery('#word').prop('checked'))
+                        type = "word";
+                    if (jQuery('#person').prop('checked'))
+                        type = "person";
+                    if (jQuery('#place').prop('checked'))
+                        type = "place";
+
+                    var url = '/term/add/' + term + '/' + type + '/';
+                    jQuery.get(url, (data, status) => {
+                        jQuery('#add-status').text(data);
+                    });
+                }
+            </script>
+            <input type="checkbox" id="word" value="word" title="">
+            <input type="checkbox" id="person" value="person">
+            <input type="checkbox" id="place" value="place">
+            <br>
+            <input type="text" id="term">
+            <input type="button" onclick="add_term()" value="Add">
+            <br>
+            <div id="add-status"></div>
+        </div>
+    </body>
+</html>

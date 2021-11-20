@@ -1,5 +1,6 @@
 var sqlite3 = require('sqlite3');
 var express = require('express');
+var path = require('path');
 
 var app = express();
 const port = 3000;
@@ -41,6 +42,10 @@ app.get('/term/getall/', (req, res) => {
     console.log("term: ", req.params.term);
     save(req.params.term);
     res.send("OK");
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 /*
